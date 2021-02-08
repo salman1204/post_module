@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const ApiRequestPost = ({url, auth}) => {
+const ApiRequestPost = (url, auth) => {
   const [data, setData] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState('');
-  console.log(url);
-  console.log(auth);
+
 
   useEffect(() => {
     const postData = () => {
@@ -22,7 +21,7 @@ const ApiRequestPost = ({url, auth}) => {
         });
     };
     postData();
-  }, []);
+  }, [url]);
   return { data, isLoaded, error };
 };
 

@@ -9,13 +9,12 @@ function App() {
     password: "",
   });
 
-  // let { data, isLoaded, error } = ApiRequestPost(url, auth);
+  let { data, isLoaded, error } = ApiRequestPost(url, auth);
 
   const login = () => {
     setAuth(auth);
     setUrl("http://localhost:8080/login");
-    <ApiRequestPost url={url} auth={auth}></ApiRequestPost>;
-    // sessionStorage.setItem("authToken", data);
+    console.log(data);
   };
 
   return (
