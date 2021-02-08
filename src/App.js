@@ -1,19 +1,51 @@
 import { useState } from "react";
-import useApiRequest from "./useApiRequest";
+import ApiRequestPost from "./ApiRequestPost";
 import "./App.css";
 
 function App() {
-  const [url,setUrl] = useState('');
-  const {error, isLoaded, data} = useApiRequest(url);
+  const [url, setUrl] = useState();
+  const [auth, setAuth] = useState({
+    username: "",
+    password: "",
+  });
 
-  const urlPara = () => {
-    setUrl ('https://jsonplaceholder.typicode.com/posts/1');
-  }
+  // let { data, isLoaded, error } = ApiRequestPost(url, auth);
+
+  const login = () => {
+    setAuth(auth);
+    setUrl("http://localhost:8080/login");
+    <ApiRequestPost url={url} auth={auth}></ApiRequestPost>;
+    // sessionStorage.setItem("authToken", data);
+  };
 
   return (
-    <div>
-      <button onClick={()=> urlPara()}>Click Me</button>
-      <button onClick={()=> console.log(data)}>data</button>
+    <div className="m-auto login__form">
+      <input
+        type="text"
+        placeholder="Username"
+        required
+        onKeyPress={(e) => e.key === "Enter" && login()}
+        onChange={(e) => {
+          setAuth({ ...auth, username: e.target.value });
+        }}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        required
+        onKeyPress={(e) => e.key === "Enter" && login()}
+        onChange={(e) => {
+          setAuth({ ...auth, password: e.target.value });
+        }}
+      />
+      <button className="login__btn py-2" onClick={() => login()}>
+        Login
+      </button>
+      {/* {error !== null && (
+              <p className="text-center text-danger mt-3">
+                Invalid or incorrect username or password
+              </p>
+            )} */}
     </div>
   );
 }
