@@ -3,18 +3,17 @@ import ApiRequestPost from "./ApiRequestPost";
 import "./App.css";
 
 function App() {
-  const [url, setUrl] = useState();
   const [auth, setAuth] = useState({
     username: "",
     password: "",
+    error:""
   });
 
-  let { data, isLoaded, error } = ApiRequestPost(url, auth);
-
   const login = () => {
-    setAuth(auth);
-    setUrl("http://localhost:8080/login");
-    console.log(data);
+    ApiRequestPost("http://localhost:8080/login", auth);
+    if(!(sessionStorage.getItem("authToken"))){
+    setAuth({ ...auth, error: "invalid" });
+  }
   };
 
   return (
@@ -40,11 +39,11 @@ function App() {
       <button className="login__btn py-2" onClick={() => login()}>
         Login
       </button>
-      {/* {error !== null && (
+      {auth.error && (
               <p className="text-center text-danger mt-3">
                 Invalid or incorrect username or password
               </p>
-            )} */}
+            )}
     </div>
   );
 }
